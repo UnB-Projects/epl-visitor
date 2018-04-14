@@ -32,4 +32,13 @@ class TestMult extends FlatSpec with Matchers with GivenWhenThen with BeforeAndA
 
     eval.result() should be (20000)
   }
+
+  it should "return 3 when we call Mult(Literal(200), Mult(Literal(100),Literal(200))).height()" in {
+    val height = new Height()
+    val mult    = new Mult(literal200, new Mult(literal100, literal200))
+
+    mult.accept(height)
+
+    height.result() should be (3)
+  }
 }

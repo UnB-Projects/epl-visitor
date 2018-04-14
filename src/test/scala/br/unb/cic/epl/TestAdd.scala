@@ -32,4 +32,49 @@ class TestAdd extends FlatSpec with Matchers with GivenWhenThen with BeforeAndAf
 
     eval.result() should be (300)
   }
+
+  it should "return 2 when we call Add(Literal(100), Literal(200)).height()" in {
+    val height = new Height()
+    val add    = new Add(literal100, literal200)
+
+    add.accept(height)
+
+    height.result() should be (2)
+  }
+
+  it should "return 3 when we call Add(Add(Literal(100),Literal(200)), Literal(200)).height()" in {
+    val height = new Height()
+    val add    = new Add(new Add(literal100, literal200), literal200)
+
+    add.accept(height)
+
+    height.result() should be (3)
+  }
+
+  it should "return 3 when we call Add(Literal(200), Add(Literal(100),Literal(200))).height()" in {
+    val height = new Height()
+    val add    = new Add(literal200, new Add(literal100, literal200))
+
+    add.accept(height)
+
+    height.result() should be (3)
+  }
+
+  it should "return 4 when we call Add(Literal(200), Add(Literal(100),Literal(200))).height()" in {
+    val height = new Height()
+    val add    = new Add(literal200, new Add(new Add(literal100,literal200), literal200))
+
+    add.accept(height)
+
+    height.result() should be (4)
+  }
+
+  it should "return 4 when we call Add(Add(Literal(100),Literal(200)), Add(Literal(100),Literal(200))).height()" in {
+    val height = new Height()
+    val add    = new Add(new Add(literal100,literal200), new Add(new Add(literal100,literal200), literal200))
+
+    add.accept(height)
+
+    height.result() should be (4)
+  }
 }
